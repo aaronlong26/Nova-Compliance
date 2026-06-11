@@ -11,6 +11,7 @@ const MINISTRIES = [
   { id: 'creative',     label: 'Creative' },
   { id: 'creativetech', label: 'Creative Technology' },
   { id: 'supernova',    label: 'Supernova' },
+  { id: 'novauni', label: 'NovaUni' },
   { id: 'building',     label: 'Building Presentation' },
   { id: 'worship',      label: 'Worship' },
 ]
