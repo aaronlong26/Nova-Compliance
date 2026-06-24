@@ -14,6 +14,7 @@ const MINISTRIES = [
   { id: 'novauni', label: 'NovaUni' },
   { id: 'building',     label: 'Building Presentation' },
   { id: 'worship',      label: 'Worship' },
+  { id: 'staffmr', label: 'Staff/MR' },
 ]
 const PIPELINE = [
   'Ministry Leader (ML)',
