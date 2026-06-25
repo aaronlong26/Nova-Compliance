@@ -22,6 +22,7 @@ const PIPELINE = [
   'Potential Team Leader (PTL)',
   'Leader in Training (LIT)',
   'Team Member (TM)',
+  'Staff/MR'
 ]
 const WARNING_DAYS = 60
 const SC_YEARS = 3
