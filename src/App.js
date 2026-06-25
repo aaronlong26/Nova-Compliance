@@ -246,7 +246,7 @@ function PersonForm({ initial, onSave, onCancel, loading }) {
             {MINISTRIES.map(m => <option key={m.id} value={m.id}>{m.label}</option>)}
           </select>
         </Field>
-        <Field label="Ministry Pipeline Position">
+        <Field label="Leadership Role">
           <select style={inp} value={form.role} onChange={e => set('role', e.target.value)}>
             <option value="">— Select position —</option>
             {PIPELINE.map(r => <option key={r} value={r}>{r}</option>)}
