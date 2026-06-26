@@ -222,7 +222,7 @@ function PinScreen({ onUnlock }) {
 
 // ── Person Form ───────────────────────────────────────────────────────────────
 function PersonForm({ initial, onSave, onCancel, loading }) {
-  const blank = { name: '', ministry: MINISTRIES[0].id, role: '', notes: '', sc_date: '', sc_expiry: '', wwcc_number: '', wwcc_date: '', wwcc_expiry: '' }
+  const blank = { name: '', ministry: MINISTRIES[0].id, role: '', notes: '', secondary_ministries: [], sc_date: '', sc_expiry: '', wwcc_number: '', wwcc_date: '', wwcc_expiry: ''
   const [form, setForm] = useState(initial || blank)
   const scPending = form.sc_expiry === 'pending'
   const wwPending = form.wwcc_expiry === 'pending'
@@ -254,7 +254,23 @@ function PersonForm({ initial, onSave, onCancel, loading }) {
           </select>
         </Field>
       </div>
-      <Field label="Notes">
+      <Field label="Also serves in (optional)">
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, padding: '8px 0' }}>
+          {MINISTRIES.filter(m => m.id !== form.ministry).map(m => (
+            <label key={m.id} style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: 12, fontWeight: 600, color: s.sub }}>
+              <input type="checkbox"
+                checked={(form.secondary_ministries || []).includes(m.id)}
+                onChange={e => {
+                  const cur = form.secondary_ministries || []
+                  setForm(f => ({ ...f, secondary_ministries: e.target.checked ? [...cur, m.id] : cur.filter(id => id !== m.id) }))
+                }}
+                style={{ accentColor: s.black }} />
+              {m.label}
+            </label>
+          ))}
+        </div>
+      </Field>
+                          <Field label="Notes">
         <textarea style={{ ...inp, resize: 'vertical' }} rows={2} value={form.notes || ''} placeholder="e.g. Certificate emailed 12 Jun…" onChange={e => set('notes', e.target.value)} />
       </Field>
 
@@ -636,6 +652,7 @@ export default function App() {
       wwcc_number: form.wwcc_number || null,
       wwcc_date: form.wwcc_date || null,
       wwcc_expiry: form.wwcc_expiry || null,
+      secondary_ministries: form.secondary_ministries || [],
       updated_at: new Date().toISOString(),
     }
     if (form.id) {
@@ -702,7 +719,7 @@ export default function App() {
 
   // ── Computed ───────────────────────────────────────────────────────────────
   const filtered = people.filter(p => {
-    if (activeTab !== 'all' && p.ministry !== activeTab) return false
+    if (activeTab !== 'all' && p.ministry !== activeTab && !(p.secondary_ministries || []).includes(activeTab)) return false
     if (searchQ && !p.name.toLowerCase().includes(searchQ.toLowerCase())) return false
     if (filterStatus === 'issues') {
       const sc = statusFor(p.sc_expiry), ww = statusFor(p.wwcc_expiry)
