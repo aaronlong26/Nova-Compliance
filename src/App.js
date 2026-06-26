@@ -222,7 +222,7 @@ function PinScreen({ onUnlock }) {
 
 // ── Person Form ───────────────────────────────────────────────────────────────
 function PersonForm({ initial, onSave, onCancel, loading }) {
-  const blank = { name: '', ministry: MINISTRIES[0].id, role: '', notes: '', secondary_ministries: [], sc_date: '', sc_expiry: '', wwcc_number: '', wwcc_date: '', wwcc_expiry: ''
+  const blank = { name: '', ministry: MINISTRIES[0].id, role: '', notes: '', secondary_ministries: [], sc_date: '', sc_expiry: '', wwcc_number: '', wwcc_date: '', wwcc_expiry: ''}
   const [form, setForm] = useState(initial || blank)
   const scPending = form.sc_expiry === 'pending'
   const wwPending = form.wwcc_expiry === 'pending'
